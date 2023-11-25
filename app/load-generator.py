@@ -16,4 +16,3 @@ for i in range(10000):
     if time_delta % 10 == 0:
         print("Making call {}".format(i))
     time.sleep(0.2)
-    
