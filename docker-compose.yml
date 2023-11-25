@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+
+  api:
+    build: .
+    command: flask --app api run -p 8080 -h 0.0.0.0
+    expose:
+      - "8080"
+    deploy:
+      replicas: 1
+
+  limiter:
+    build: .
+    command: flask --app window-limiter run -p 8080 -h 0.0.0.0
+    expose:
+      - "8080"
+    deploy:
+      replicas: 1
+
+  generator:
+    build: .
+    depends_on:
+      - limiter
+      - api
+    command: python3 ./load-generator.py
+    expose:
+      - "8080"
+    deploy:
+      replicas: 1
