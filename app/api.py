@@ -11,4 +11,4 @@ app = Flask(__name__)
 @app.route("/")
 def status():
     # print("Received request at {}".format(time.time()))
-    return "Status: OK"
+    return "Status: OK\n"

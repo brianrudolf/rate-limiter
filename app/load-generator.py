@@ -5,7 +5,7 @@ import requests, time
     various rate limiter strategies.
 """
 
-address = "http://localhost:5050/"
+address = "http://limiter:8080/"
 
 start = int(time.time())
 
@@ -15,4 +15,5 @@ for i in range(10000):
     time_delta = int(time.time()) - start
     if time_delta % 10 == 0:
         print("Making call {}".format(i))
-    time.sleep(1)
+    time.sleep(0.2)
+    
