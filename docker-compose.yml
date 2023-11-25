@@ -11,7 +11,7 @@ services:
 
   limiter:
     build: .
-    command: flask --app token-limiter run -p 8080 -h 0.0.0.0
+    command: flask --app window-limiter run -p 8080 -h 0.0.0.0
     expose:
       - "8080"
     deploy:
