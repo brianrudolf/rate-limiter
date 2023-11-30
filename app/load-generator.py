@@ -15,4 +15,4 @@ for i in range(10000):
     time_delta = int(time.time()) - start
     if time_delta % 10 == 0:
         print("Making call {}".format(i))
-    time.sleep(0.2)
+    time.sleep(0.001)
