@@ -1,18 +1,24 @@
-import requests, time
+import requests, time, os
 
 """
     A load generator designed to drive load to test 
     various rate limiter strategies.
 """
 
-address = "http://limiter:8080/"
+limiter_address = os.environ["LIMITER_ADDRESS"]
+limiter_port = os.environ["LIMITER_PORT"]
+request_rate = os.environ["REQUEST_RPS"]
 
-start = int(time.time())
+address = f"http://{limiter_address}:{limiter_port}/"
+
+# start = int(time.time())
+
+rate_sleep = 1 / float(request_rate)
 
 # Naive initial approach to make fast calls
-for i in range(10000):
+while True:
     resp = requests.get(address)
-    time_delta = int(time.time()) - start
-    if time_delta % 10 == 0:
-        print("Making call {}".format(i))
-    time.sleep(0.001)
+    # time_delta = int(time.time()) - start
+    # if time_delta % 10 == 0:
+    #     print("Making call {}".format(i))
+    time.sleep(rate_sleep)
