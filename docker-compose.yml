@@ -4,6 +4,7 @@ services:
   api:
     build: .
     command: gunicorn --bind 0.0.0.0:8080 api:app
+    env_file: .env
     expose:
       - "8080"
     deploy:
@@ -12,6 +13,7 @@ services:
   limiter:
     build: .
     command: gunicorn --bind 0.0.0.0:8080 sliding-window-limiter:app
+    env_file: .env
     expose:
       - "8080"
     deploy:
@@ -30,10 +32,9 @@ services:
       - limiter
       - api
     command: python3 ./load-generator.py
-    expose:
-      - "8080"
+    env_file: .env
     deploy:
-      replicas: 10
+      replicas: 1
       resources:
         limits:
           cpus: '0.5'

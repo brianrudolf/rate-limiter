@@ -2,7 +2,7 @@ from flask import Flask, request, Response, jsonify
 from redis import Redis
 from logging.config import dictConfig
 
-import time, requests
+import time, requests, os
 import threading
 
 """
@@ -28,9 +28,13 @@ dictConfig({
 
 app = Flask(__name__)
 
-redis_server = Redis.from_url('redis://request-store:6379/', decode_responses=True)
+api_address = os.environ["API_ADDRESS"]
+api_port = os.environ["API_PORT"]
+cache_address = os.environ["CACHE_ADDRESS"]
 
-api_address = "http://api:8080/"
+redis_server = Redis.from_url(f"redis://{cache_address}:6379/", decode_responses=True)
+
+api_address = f"http://{api_address}:{api_port}/"
 
 # Configuration dictionary of requests/second allowed
 rates = {
